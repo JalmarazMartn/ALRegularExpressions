@@ -1,0 +1,47 @@
+<html>
+<body>
+    <input name="TextToRemove" id="TextToRemove" type="text">Original</textarea>
+<button onclick='OnClickSafe()'>AL var declaration</button>
+<button onclick='OnClickSQL()'>SQL to JS Notation</button>
+    <script>
+        "use strict";
+        function OnClickSafe()
+        {
+        alert(document.getElementById("TextToRemove").value);
+        //alert(AlmostSafe(document.getElementById("TextToRemove").value));
+        //alert(ToJSBooleanNoatation(document.getElementById("TextToRemove").value));
+        alert(ALVariableNaming(document.getElementById("TextToRemove").value));        
+        }
+        function OnClickSQL()
+        {
+        alert(document.getElementById("TextToRemove").value);
+        alert(SQLToJSBooleanNotation(document.getElementById("TextToRemove").value));
+        }
+
+        function AlmostSafe(original)
+        {
+            return(original.replace(/[A-Za-z]/g,''));
+        }
+        function SQLToJSBooleanNotation(original)
+        {
+            var JSNotation = original;
+            JSNotation = JSNotation.replace(/and/gi,'&&');
+            JSNotation = JSNotation.replace(/or/gi,'||');
+            JSNotation = JSNotation.replace(/not/gi,'!');
+            JSNotation = JSNotation.replace(/([^=])(=)([^=])/g,"$1 == $3");
+            return(JSNotation);
+        }        
+        function ALVariableNaming(original)
+        {            
+            return(original.replace(/(.*):\s*(Record|Page|Report|Codeunit)(.*);/,
+            ReplaceVarName));
+            
+        }
+        function ReplaceVarName(match,VarName,VarType,VarSubtype)
+        {            
+            var NewVarName = VarSubtype.replace(/[\s|"]/g,'');
+            return (NewVarName+':'+VarType+ ' ' + VarSubtype+';');
+        }
+    </script>
+</body>
+</html>
