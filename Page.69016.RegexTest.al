@@ -50,6 +50,17 @@ page 69016 "Regex examples"
                     OutputExpr := RegexpExamples.RenameALObjectVariable(InputExpr);
                 end;
             }
+            action(EvalBoolean)
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                var
+                    RegexpExamples: Codeunit "Regexp Examples";
+                begin
+                    OutputExpr := RegexpExamples.IstrueBoolExpr(InputExpr);
+                end;
+            }
 
         }
     }
